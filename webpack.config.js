@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
 	devtool : "eval-source-map",
 	entry : __dirname + "/app/main.js",
@@ -23,7 +25,24 @@ module.exports = {
 					}
 				},
 				exclude : /node_modules/
+			},
+			{
+				test : /\.css$/,
+				use : [
+					{loader : "style-loader"},
+					{
+						loader : "css-loader",
+						options : {
+							modules : true,
+							localIdentName : '[name]__[local]--[bash:base64:5]'
+						}
+					}
+				]
 			}
 		]
 	},
+
+	plugins : [
+		new webpack.BannerPlugin("版权所有，翻版必究")
+	],
 }
